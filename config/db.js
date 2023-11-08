@@ -6,8 +6,8 @@ db.connect()
         console.log('Database connection successful');
         obj.done(); //releases the db connection
     })
-    .catch(errror => {
+    .catch(error => {
         console.log('Error connecting to the database :', error);
     });
-    
+
 module.exports = db;
