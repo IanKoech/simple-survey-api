@@ -13,8 +13,8 @@ router.post('/api/surveys', surveyController.createSurvey);
 router.get('/api/questions', questionController.getAllQuestions);
 router.post('/api/questions', questionController.createQuestion);
 
-router.get('/api/responses', surveyController.getAllResponses);
-router.post('/api/responses', surveyController.submitResponse);
+router.get('/api/responses', responseController.getAllResponses);
+router.post('/api/responses', responseController.submitResponse);
 
 router.get('/api/responses/surveys/survey:survey_id', responseController.getResponsesBySurvey);
 router.get('/api/responses/certificates/:id', responseController.downloadCertificate);
