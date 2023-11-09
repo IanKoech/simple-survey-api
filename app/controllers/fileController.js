@@ -17,7 +17,7 @@ const fileController = {
             const newFile = await db.one(
                 'INSERT INTO file(response_id, file_name, format, file_size) VALUES($1, $2, $3, $4) RETURNING *',
                 [
-                    response_id,
+                    responseId,
                     file_name,
                     format,
                     file_size

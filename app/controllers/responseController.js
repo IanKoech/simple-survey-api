@@ -16,7 +16,7 @@ const responseController = {
 
         try {
             const date_responded = new Date();
-            const respose = await db.one('INSERT INTO response(survey_id, full_name, email_address, description, gender, date_responded) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+            const response = await db.one('INSERT INTO response(survey_id, full_name, email_address, description, gender, date_responded) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
             [
                 survey_id,
                 full_name,
