@@ -37,7 +37,7 @@ const responseController = {
         const { survey_id } = req.params;
 
         try {
-            const responses = await db.any('SELECT * FROM response WHERE survey_id = $1'. [survey_id]);
+            const responses = await db.any('SELECT * FROM response WHERE survey_id = $1', [survey_id]);
             res.json(responses);
         } catch (error) {
             console.error(error);
