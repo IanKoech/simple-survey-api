@@ -58,7 +58,33 @@ const responseController = {
             console.error(error);
             res.status(500).json({ message: 'Internal Server Error' });
         }
-    }
+    },
+
+    updateResponse: async (req, res) => {
+        const responseId = req.params.id;
+        const { survey_id, full_name, email_address, description, gender } = req.body;
+        try {
+          await db.none(
+            "UPDATE response SET survey_id=$1, full_name=$2, email_address=$3, description=$4, gender=$5 WHERE response_id=$6",
+            [survey_id, full_name, email_address, description, gender, responseId]
+          );
+          res.json({ message: "Response updated" });
+        } catch (error) {
+          console.error(error);
+          res.status(500).json({ message: "Internal Server Error" });
+        }
+      },
+    
+      deleteResponse: async (req, res) => {
+        const responseId = req.params.id;
+        try {
+          await db.none("DELETE FROM response WHERE response_id = $1", [responseId]);
+          res.json({ message: "Response deleted" });
+        } catch (error) {
+          console.error(error);
+          res.status(500).json({ message: "Internal Server Error" });
+        }
+      }
 }
 
 module.exports = responseController;
