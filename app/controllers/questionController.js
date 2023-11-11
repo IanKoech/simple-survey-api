@@ -12,20 +12,23 @@ const questionController = {
     },
 
     createQuestion: async(req, res) => {
-        const { name, type, required, text, description } = req.body;
+        const { name, type, required, text, description, options, file_properties } = req.body; // Add options here
         try {
-            await db.none('INSERT INTO question(name, type, required, text, description) VALUES ($1, $2, $3, $4, $5)', 
+            await db.none('INSERT INTO question(name, type, required, text, description, options, file_properties) VALUES ($1, $2, $3, $4, $5, $6, $7)',
             [
                 name,
                 type,
                 required,
-                text, 
-                description
+                text,
+                description,
+                options,
+                file_properties
             ]);
-            res.json({ message: 'Question created successfully' })
+    
+            res.json({ message: 'Question created successfully' });
         } catch (error) {
             console.error(error);
-            res.status(500).json({ message: "Internal Server Error" })
+            res.status(500).json({ message: "Internal Server Error" });
         }
     },
     
