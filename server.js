@@ -9,6 +9,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer().any());
 
+app.use((req, res, next) => {
+    req.query = Object.fromEntries(new URLSearchParams(req.url.split('?')[1]));
+    next();
+});
+
 const surveyRoutes = require('./app/routes/surveyRoutes');
 
 app.use('/', surveyRoutes);
