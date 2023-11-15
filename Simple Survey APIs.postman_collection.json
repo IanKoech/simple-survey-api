@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "34381dab-25a7-43ff-857c-3977937a3ab2",
+		"name": "Simple Survey APIs",
+		"description": "Get, put,",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "14272496"
+	},
+	"item": [
+		{
+			"name": "GetAllSurveys",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `\r",
+							"<style type=\"text/css\">\r",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+							"    .tftable tr {background-color:#ffffff;}\r",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+							"    .tftable tr:hover {background-color:#e0ffff;}\r",
+							"</style>\r",
+							"\r",
+							"<table class=\"tftable\" border=\"1\">\r",
+							"    <tr>\r",
+							"        <th>Survey ID</th>\r",
+							"        <th>Name</th>\r",
+							"        <th>Description</th>\r",
+							"    </tr>\r",
+							"    \r",
+							"    {{#each response}}\r",
+							"        <tr>\r",
+							"            <td>{{survey_id}}</td>\r",
+							"            <td>{{name}}</td>\r",
+							"            <td>{{description}}</td>\r",
+							"        </tr>\r",
+							"    {{/each}}\r",
+							"</table>\r",
+							"`;\r",
+							"\r",
+							"function constructVisualizerPayload() {\r",
+							"    return {response: pm.response.json()}\r",
+							"}\r",
+							"\r",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/surveys"
+			},
+			"response": []
+		},
+		{
+			"name": "CreateSurvey",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Survey Name\",\r\n    \"description\": \"Survey Description\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/surveys"
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllFiles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/files"
+			},
+			"response": []
+		},
+		{
+			"name": "CreateFile",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"responseId\": 1,\r\n    \"file_name\": \"example_file.txt\",\r\n    \"format\": \"txt\",\r\n    \"file_size\": 1024\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/questions"
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateQuerstion/id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Updated Question\",\r\n    \"type\": \"text\",\r\n    \"required\": false,\r\n    \"text\": \"Please provide your feedback.\",\r\n    \"description\": \"Provide any comments or suggestions.\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/questions/1"
+			},
+			"response": []
+		},
+		{
+			"name": "GellAllQuestions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/questions/"
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteQuestion",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:3000/api/questions/1"
+			},
+			"response": []
+		},
+		{
+			"name": "CreateQuestion",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
