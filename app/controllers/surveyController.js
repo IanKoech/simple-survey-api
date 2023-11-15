@@ -13,17 +13,18 @@ const surveyController = {
 
   createSurvey: async (req, res) => {
     const { name, description } = req.body;
+    console.log('Here is the request body :',req.body)
     try {
-      await db.none("INSERT INTO survey(name, description) VALUES($1, $2)", [
-        name,
-        description,
-      ]);
+      await db.one(
+        "INSERT INTO survey(name, description) VALUES($1, $2) RETURNING *",
+        [name, description]
+      );
       res.json({ message: "Survey created" });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Internal Server Error" });
     }
-  }
+  },
 };
 
 module.exports = surveyController;
