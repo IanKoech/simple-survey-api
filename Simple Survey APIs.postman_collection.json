@@ -125,9 +125,16 @@
 		},
 		{
 			"name": "GellAllQuestions",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": "http://localhost:3000/api/questions/"
 			},
 			"response": []
@@ -143,9 +150,74 @@
 		},
 		{
 			"name": "CreateQuestion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `\r",
+							"<style type=\"text/css\">\r",
+							"    .error-container {\r",
+							"        width: 100%;\r",
+							"        height: 100vh;\r",
+							"        display: flex;\r",
+							"        justify-content: center;\r",
+							"        align-items: center;\r",
+							"        font-family: Arial, sans-serif;\r",
+							"    }\r",
+							"\r",
+							"    .error-message {\r",
+							"        text-align: center;\r",
+							"        color: #333333;\r",
+							"    }\r",
+							"\r",
+							"    .error-title {\r",
+							"        font-size: 24px;\r",
+							"        font-weight: bold;\r",
+							"        margin-bottom: 10px;\r",
+							"    }\r",
+							"\r",
+							"    .error-details {\r",
+							"        font-size: 16px;\r",
+							"    }\r",
+							"</style>\r",
+							"\r",
+							"<div class=\"error-container\">\r",
+							"    <div class=\"error-message\">\r",
+							"        <div class=\"error-title\">Error</div>\r",
+							"        <div class=\"error-details\">{{response.errorDetails}}</div>\r",
+							"    </div>\r",
+							"</div>\r",
+							"`;\r",
+							"\r",
+							"function constructVisualizerPayload() {\r",
+							"    var errorDetails = pm.response.text().split(\"<br>\");\r",
+							"    errorDetails = errorDetails.map(function (detail) {\r",
+							"        return detail.trim();\r",
+							"    });\r",
+							"\r",
+							"    return { response: { errorDetails: errorDetails } };\r",
+							"}\r",
+							"\r",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"certificates\",\r\n    \"type\": \"file\",\r\n    \"required\": true,\r\n    \"text\": \"Upload any of your certificates?\",\r\n    \"description\": \"You can upload multiple (.pdf)\",\r\n    \"options\": [\r\n        \"Adobe Certification\",\r\n        \"Figma Fundamentals\"\r\n    ],\r\n    \"file_properties\": {\r\n        \"format\": \".pdf\",\r\n        \"max_file_size\": 1,\r\n        \"max_file_size_unit\": \"mb\",\r\n        \"multiple\": \"yes\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/questions/"
 			},
 			"response": []
 		}
